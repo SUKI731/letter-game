@@ -1,0 +1,68 @@
+<html>
+<head>
+	<title>game</title>
+	<style>
+		html,body{margin:0;padding:0;}
+		#container{width:800px;height:600px;border-radius:25px;border:1px solid #000;margin:10px auto;position:relative;}
+		span{width:50px;height:50px;border-radius:25px;color:#fff;background-color:#666;text-align:center;display:inline-block;
+		font-size:30px;line-height:50px;position:absolute;
+		}
+	</style>
+	<script>
+		window.onload=function(){
+			var con=document.getElementById("container");
+			var letters=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+			var spans=document.getElementsByTagName("span");
+			device();
+			function device(){
+				var isMobile=/mobile/i.test(navigator.userAgent);
+					con.onclick=function(e){ 
+					var e=e||window.event;
+					var target=e.target||e.srcElement;
+					if(isMobile){
+						if(target.nodeName.toLowerCase()=='span'){
+							con.removeChild(target);
+						}
+								
+					}
+					
+					};
+				}
+			setInterval(function(){
+				var span=document.createElement("span");
+				span.innerHTML=letters[Math.floor((Math.random()*letters.length))];
+				span.style.left=Math.random()*750+"px";
+				con.appendChild(span);
+			},1000);
+			setInterval(function(){
+				
+				for(var i=0;i<spans.length;i++){
+					if(spans[i].offsetTop+50>=600){
+						con.removeChild(spans[i]);
+					}else{
+						spans[i].style.top=spans[i].offsetTop+50+"px";
+					}
+					
+				}
+				
+			},1000);
+			
+			document.onkeyup=function(event){
+			var e=event.keyCode;
+			var spans=document.getElementsByTagName("span");
+				for(var i=0;i<spans.length;i++){
+					if(spans[i].innerHTML==letters[e-65]){
+						con.removeChild(spans[i]);
+					}
+				}
+			};
+		
+	}	
+	</script>
+</head>
+<body>
+	<div id="container">
+		
+	</div>
+</body>
+</html>
